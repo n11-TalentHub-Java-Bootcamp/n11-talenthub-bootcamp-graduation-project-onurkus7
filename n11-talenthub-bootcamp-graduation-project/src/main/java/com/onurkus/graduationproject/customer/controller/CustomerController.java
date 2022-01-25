@@ -20,10 +20,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/customer-save")
-    public ResponseEntity saveCustomer(@RequestBody CustomerSaveDto customerSaveDto)
+    public CustomerDto saveCustomer(@RequestBody CustomerSaveDto customerSaveDto)
     {
-        CustomerDto customerDto = customerService.saveCustomer(customerSaveDto);
-        return ResponseEntity.ok("Kullanıcı kaydedildi.(" + customerDto.getFullName()+")");
+        return customerService.saveCustomer(customerSaveDto);
     }
 
     @GetMapping("/customer-search")
