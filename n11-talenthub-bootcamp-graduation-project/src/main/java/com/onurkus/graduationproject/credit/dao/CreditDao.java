@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CreditDao extends JpaRepository<Credit,Long> {
+
+    Credit findByIdentityId(Long identityId);
+
 }

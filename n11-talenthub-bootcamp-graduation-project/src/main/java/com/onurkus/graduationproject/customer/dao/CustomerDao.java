@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerDao extends JpaRepository<Customer,Long> {
-    Customer findByIdentityId(Long identityId);
 
+    Customer findByIdentityId(Long identityId);
+    
 }
