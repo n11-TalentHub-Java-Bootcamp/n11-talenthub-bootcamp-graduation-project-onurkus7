@@ -1,5 +1,7 @@
-package com.onurkus.graduationproject.entity;
+package com.onurkus.graduationproject.credit.entity;
 
+import com.onurkus.graduationproject.customer.entity.Customer;
+import com.onurkus.graduationproject.gen.entity.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,13 +13,14 @@ import java.math.BigDecimal;
 public class Credit implements BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "Credit", sequenceName = "CREDIT_ID_SEQ")
+    @GeneratedValue(generator = "Credit")
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK_CREDIT_USER_ID"))
-    private User userId;
+    @JoinColumn(name = "CUSTOMER_ID", foreignKey = @ForeignKey(name = "FK_CREDIT_CUSTOMER_ID"))
+    private Customer customerId;
 
     @Column(name = "CREDIT_SCORE", nullable = false)
     private Integer creditScore;
