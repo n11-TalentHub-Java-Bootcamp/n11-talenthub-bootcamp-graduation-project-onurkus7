@@ -1,4 +1,4 @@
-package com.onurkus.graduationproject.controller;
+package com.onurkus.graduationproject.credit.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
