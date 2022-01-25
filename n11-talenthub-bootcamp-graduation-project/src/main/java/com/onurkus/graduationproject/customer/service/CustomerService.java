@@ -2,6 +2,7 @@ package com.onurkus.graduationproject.customer.service;
 
 import com.onurkus.graduationproject.customer.converter.CustomerMapper;
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
+import com.onurkus.graduationproject.customer.dto.CustomerSaveDto;
 import com.onurkus.graduationproject.customer.dto.CustomerUpdateDto;
 import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.customer.service.entityservice.CustomerEntityService;
@@ -16,23 +17,24 @@ import java.util.List;
 public class CustomerService {
     private final CustomerEntityService customerEntityService;
 
-    public CustomerDto save(Customer customer)
+    public CustomerDto saveCustomer(CustomerSaveDto customerSaveDto)
     {
+        Customer customer = CustomerMapper.INSTANCE.convertCustomerSaveDtoToCustomer(customerSaveDto);
         customer = customerEntityService.save(customer);
-        CustomerDto customerDto = CustomerMapper.INSTANCE.convertToCustomerDto(customer);
-        return customerDto;
+
+        return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
     public List<CustomerDto> findAllCustomer() {
         List<Customer> customerList = customerEntityService.findAll();
-        List<CustomerDto> customerDtoList = CustomerMapper.INSTANCE.convertToCustomerDtoList(customerList);
-        return customerDtoList;
+
+        return CustomerMapper.INSTANCE.convertToCustomerDtoList(customerList);
     }
 
     public CustomerDto findByIdentityCustomer(Long identityId) {
         Customer customer = customerEntityService.findByIdentityCustomer(identityId);
-        CustomerDto customerDto = CustomerMapper.INSTANCE.convertToCustomerDto(customer);
-        return customerDto;
+
+        return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
     public CustomerDto updateCustomer(Long identityId,CustomerUpdateDto customerUpdateDto) {
@@ -42,9 +44,9 @@ public class CustomerService {
         customer.setPhoneNumber(customerUpdateDto.getPhoneNumber());
         customer.setSalary(customerUpdateDto.getSalary());
         customer.setCollateral(customerUpdateDto.getCollateral());
+        customerEntityService.save(customer);
 
-        CustomerDto customerDto = CustomerMapper.INSTANCE.convertToCustomerDto(customer);
-        return customerDto;
+        return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
 
