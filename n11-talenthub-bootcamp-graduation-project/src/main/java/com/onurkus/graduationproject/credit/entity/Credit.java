@@ -1,5 +1,6 @@
 package com.onurkus.graduationproject.credit.entity;
 
+import com.onurkus.graduationproject.credit.enums.EnumCreditStatus;
 import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.gen.entity.BaseEntity;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class Credit implements BaseEntity {
     @Id
     @SequenceGenerator(name = "Credit", sequenceName = "CREDIT_ID_SEQ")
     @GeneratedValue(generator = "Credit")
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "CREDIT_ID", nullable = false, unique = true)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -26,7 +27,7 @@ public class Credit implements BaseEntity {
     private Integer creditScore;
 
     @Column(name = "CREDIT_STATUS", nullable = false)
-    private Enum creditStatus;
+    private EnumCreditStatus creditStatus;
 
     @Column(length = 50, name = "CREDIT_LIMIT", nullable = false)
     private BigDecimal creditLimit;
