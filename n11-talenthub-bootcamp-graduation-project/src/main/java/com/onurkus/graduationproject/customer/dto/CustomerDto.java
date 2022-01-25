@@ -1,4 +1,4 @@
-package com.onurkus.graduationproject.dto;
+package com.onurkus.graduationproject.customer.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class UserDto {
+public class CustomerDto {
 
     private Long identityId;
     private Date registrationDate;
