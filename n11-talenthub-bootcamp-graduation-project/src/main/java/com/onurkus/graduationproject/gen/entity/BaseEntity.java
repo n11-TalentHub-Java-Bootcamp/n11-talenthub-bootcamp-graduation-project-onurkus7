@@ -1,4 +1,4 @@
-package com.onurkus.graduationproject.entity;
+package com.onurkus.graduationproject.gen.entity;
 
 public interface BaseEntity{
     Long getId();
