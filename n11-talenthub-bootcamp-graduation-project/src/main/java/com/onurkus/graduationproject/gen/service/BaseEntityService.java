@@ -1,12 +1,11 @@
-package com.onurkus.graduationproject.service;
+package com.onurkus.graduationproject.gen.service;
 
-import com.onurkus.graduationproject.entity.BaseEntity;
+import com.onurkus.graduationproject.gen.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,10 +15,6 @@ public abstract class BaseEntityService <E extends BaseEntity,D extends JpaRepos
 
     public List<E> findAll(){
         return dao.findAll();
-    }
-
-    public Optional<E> findById(Long id){
-        return dao.findById(id);
     }
 
     public E save(E e){
