@@ -1,4 +1,4 @@
-package com.onurkus.graduationproject.converter;
+package com.onurkus.graduationproject.credit.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
