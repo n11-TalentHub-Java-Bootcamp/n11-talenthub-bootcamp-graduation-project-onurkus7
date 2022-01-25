@@ -1,6 +1,7 @@
 package com.onurkus.graduationproject.customer.controller;
 
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
+import com.onurkus.graduationproject.customer.dto.CustomerSaveDto;
 import com.onurkus.graduationproject.customer.dto.CustomerUpdateDto;
 import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.customer.service.CustomerService;
@@ -19,9 +20,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/customer-save")
-    public ResponseEntity saveCustomer(@RequestBody Customer customer)
+    public ResponseEntity saveCustomer(@RequestBody CustomerSaveDto customerSaveDto)
     {
-        CustomerDto customerDto = customerService.save(customer);
+        CustomerDto customerDto = customerService.saveCustomer(customerSaveDto);
         return ResponseEntity.ok("Kullanıcı kaydedildi.(" + customerDto.getFullName()+")");
     }
 
@@ -40,7 +41,7 @@ public class CustomerController {
         return customerService.updateCustomer(identityId,customerUpdateDto);
     }
 
-    @DeleteMapping("/customer-delete/{id}")
+    @DeleteMapping("/customer-delete/{identityId}")
     public void deleteCustomer(@PathVariable Long identityId) {
         customerService.deleteCustomer(identityId);
     }
