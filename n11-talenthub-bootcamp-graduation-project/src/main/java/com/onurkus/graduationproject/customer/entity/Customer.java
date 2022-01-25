@@ -3,6 +3,7 @@ package com.onurkus.graduationproject.customer.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.onurkus.graduationproject.gen.entity.BaseEntity;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,19 +20,18 @@ public class Customer implements BaseEntity {
     @Column(name = "CUSTOMER_ID", nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Column(length = 11, name = "IDENTITY_ID", nullable = false, updatable = false, unique = true)
+    @Column(length = 11, name = "IDENTITY_ID", nullable = false, unique = true)
     private Long identityId;
 
-    @Column(name = "REGISTRATION_DATE", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "REGISTRATION_DATE",columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false)
+    @CreationTimestamp
     private Date registrationDate;
 
     @Column(length = 50, name = "FULL_NAME", nullable = false)
     private String fullName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "BIRTHDAY_DATE", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date birthdayDate;
 
     @Column(name = "PHONE_NUMBER", unique = true)
