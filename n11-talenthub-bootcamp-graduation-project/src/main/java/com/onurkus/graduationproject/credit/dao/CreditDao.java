@@ -1,6 +1,6 @@
-package com.onurkus.graduationproject.dao;
+package com.onurkus.graduationproject.credit.dao;
 
-import com.onurkus.graduationproject.entity.Credit;
+import com.onurkus.graduationproject.credit.entity.Credit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
