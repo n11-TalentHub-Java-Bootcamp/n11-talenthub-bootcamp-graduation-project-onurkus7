@@ -16,8 +16,6 @@ public interface CustomerMapper {
 
     CustomerDto convertToCustomerDto(Customer customer);
 
-    Customer convertToCustomer(CustomerDto customerDto);
-
     Customer convertCustomerSaveDtoToCustomer(CustomerSaveDto customerSaveDto);
 
     List<CustomerDto> convertToCustomerDtoList(List<Customer> customer);
