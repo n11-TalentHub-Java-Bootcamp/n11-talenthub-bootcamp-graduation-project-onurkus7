@@ -3,25 +3,21 @@ package com.onurkus.graduationproject.customer.controller;
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
 import com.onurkus.graduationproject.customer.dto.CustomerSaveDto;
 import com.onurkus.graduationproject.customer.dto.CustomerUpdateDto;
-import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.customer.service.CustomerService;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/app/customers")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @PostMapping("/customer-save")
-    public CustomerDto saveCustomer(@RequestBody CustomerSaveDto customerSaveDto)
-    {
+    public CustomerDto saveCustomer(@RequestBody CustomerSaveDto customerSaveDto) {
         return customerService.saveCustomer(customerSaveDto);
     }
 
