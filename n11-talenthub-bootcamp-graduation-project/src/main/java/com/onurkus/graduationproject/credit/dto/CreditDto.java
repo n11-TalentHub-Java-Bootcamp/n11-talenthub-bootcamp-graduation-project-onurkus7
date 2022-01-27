@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class CreditDto {
 
     private Long customerId;
+    private Long identityId;
     private Integer creditScore;
     private EnumCreditStatus creditStatus;
     private BigDecimal creditLimit;

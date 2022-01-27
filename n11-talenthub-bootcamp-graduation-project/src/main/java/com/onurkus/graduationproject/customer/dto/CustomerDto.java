@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class CustomerDto {
 
+    private Long id;
     private Long identityId;
     private Date registrationDate;
     private String fullName;
