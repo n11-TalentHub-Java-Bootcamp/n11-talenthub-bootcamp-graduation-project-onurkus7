@@ -1,5 +1,7 @@
 package com.onurkus.graduationproject.message.service;
 
+import com.onurkus.graduationproject.credit.dto.CreditDto;
+import com.onurkus.graduationproject.customer.service.CustomerService;
 import com.onurkus.graduationproject.message.converter.MessageMapper;
 import com.onurkus.graduationproject.message.dao.MessageDao;
 import com.onurkus.graduationproject.message.dto.MessageDto;
@@ -13,28 +15,47 @@ import org.springframework.stereotype.Service;
 public class MessageService {
 
     private final MessageDao messageDao;
+    private final CustomerService customerService;
 
-    private static final String ACCOUNT_SID = "";
-    private static final String AUTH_TOKEN = "";
+    private static final String ACCOUNT_SID = "ACb22980023a710da4fc6582f758b15d3a";
+    private static final String AUTH_TOKEN = "2cf665672d395d74a545a3e687758404";
+    private static final String BASE_PHONE_NUMBER = "+17755225036";
 
-    MessageDto messageDto=new MessageDto();
+    public void sendMessageByIdentityId(CreditDto creditDto) {
 
-    public void sendMessageByIdentityId(Long identityId){
-        //messageDao.findMessageByIdentityId(identityId);
-        //messageDto = MessageMapper.INSTANCE.convertToMessageDto(messageDao.findMessageByIdentityId(identityId));
-        twilioSmsProcess();
+        String phoneNumberByIdentityId = customerService.findPhoneNumberByIdentityId(creditDto.getIdentityId());
+
+        String messageContent = twilioSmsProcess(creditDto, phoneNumberByIdentityId);
+        saveMessage(creditDto, phoneNumberByIdentityId, messageContent);
+
     }
 
-    public void twilioSmsProcess(){
+    public String twilioSmsProcess(CreditDto creditDto, String phoneNumberByIdentityId) {
+
+        String messageContent = "K4RK1N BANK: Your loan application has been " + creditDto.getCreditStatus() +
+                ". Your Credit Limit: " + creditDto.getCreditLimit();
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber(""),
-                new com.twilio.type.PhoneNumber("+17755225036"),
-                "K4RK1N BANK: Your loan application has been APPROVED. Your Credit Limit: $61000")
+        Message.creator(
+                new com.twilio.type.PhoneNumber(phoneNumberByIdentityId),
+                new com.twilio.type.PhoneNumber(BASE_PHONE_NUMBER),
+                messageContent)
                 .create();
 
+        return messageContent;
+
     }
-     //messageDto.getPhoneNumber()  messageDto.getMessageContent()
+
+    private void saveMessage(CreditDto creditDto, String phoneNumberByIdentityId, String messageContent) {
+        MessageDto messageDto = new MessageDto();
+        messageDto.setCustomerId(creditDto.getCustomerId());
+        messageDto.setIdentityId(creditDto.getIdentityId());
+        messageDto.setPhoneNumber(phoneNumberByIdentityId);
+        messageDto.setMessageContent(messageContent);
+
+        messageDao.save(MessageMapper.INSTANCE.convertToMessage(messageDto));
+
+    }
+
 }

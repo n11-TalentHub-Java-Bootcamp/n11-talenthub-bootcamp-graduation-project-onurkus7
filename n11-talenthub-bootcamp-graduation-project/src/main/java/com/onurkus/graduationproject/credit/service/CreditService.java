@@ -8,11 +8,13 @@ import com.onurkus.graduationproject.customer.converter.CustomerMapper;
 import com.onurkus.graduationproject.customer.dao.CustomerDao;
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
 import com.onurkus.graduationproject.customer.entity.Customer;
+import com.onurkus.graduationproject.message.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
@@ -24,15 +26,16 @@ public class CreditService {
 
     private final CreditDao creditDao;
     private final CustomerDao customerDao;
+    private final MessageService messageService;
 
     private static final Integer CREDIT_LIMIT_MULTIPLIER = 4;
 
-    public BigDecimal getCreditLimitByIdentityIdAndBirthdayDate(
-            Long identityId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdayDate) {
-        return creditDao.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0);
+    public CreditDto getCreditLimitByIdentityIdAndBirthdayDate(Long identityId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdayDate) {
+
+        return CreditMapper.INSTANCE.convertToCreditDto(creditDao.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0));
     }
 
-    public CreditDto getCreditLimitByIdentityId(Long identityId) {
+    public CreditDto transactionCreditLimitByIdentityId(Long identityId) {
 
         CustomerDto customerDto = getCustomerByIdentityId(identityId);
 
@@ -43,7 +46,7 @@ public class CreditService {
         return creditDto;
     }
 
-    public CustomerDto getCustomerByIdentityId(Long identityId) {
+    private CustomerDto getCustomerByIdentityId(Long identityId) {
         Customer customer = customerDao.findByIdentityId(identityId);
 
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
@@ -120,6 +123,8 @@ public class CreditService {
 
     private void saveCredit(CreditDto creditDto) {
         creditDao.save(CreditMapper.INSTANCE.convertToCredit(creditDto));
+        messageService.sendMessageByIdentityId(creditDto);
+
     }
 
 }

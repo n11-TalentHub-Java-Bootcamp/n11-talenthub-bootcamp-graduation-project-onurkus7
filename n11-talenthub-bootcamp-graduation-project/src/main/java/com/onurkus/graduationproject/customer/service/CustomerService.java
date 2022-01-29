@@ -17,12 +17,16 @@ public class CustomerService {
 
     private final CustomerDao customerDao;
 
-    public CustomerDto saveCustomer(CustomerSaveDto customerSaveDto)
-    {
-        Customer customer = CustomerMapper.INSTANCE.convertCustomerSaveDtoToCustomer(customerSaveDto);
-        customer = customerDao.save(customer);
+    public String saveCustomer(CustomerSaveDto customerSaveDto) {
+        final Long identityId = customerSaveDto.getIdentityId();
 
-        return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
+        if (String.valueOf(identityId).length() != 11) {
+            return "Identity is not failed";
+        }
+
+        Customer customer = CustomerMapper.INSTANCE.convertCustomerSaveDtoToCustomer(customerSaveDto);
+        customerDao.save(customer);
+        return "Customer successfully registered";
     }
 
     public List<CustomerDto> findAllCustomer() {
@@ -32,12 +36,13 @@ public class CustomerService {
     }
 
     public CustomerDto findByIdentityCustomer(Long identityId) {
+
         Customer customer = customerDao.findByIdentityId(identityId);
 
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
-    public CustomerDto updateCustomer(Long identityId,CustomerUpdateDto customerUpdateDto) {
+    public CustomerDto updateCustomer(Long identityId, CustomerUpdateDto customerUpdateDto) {
 
         Customer customer = customerDao.findByIdentityId(identityId);
 
@@ -49,9 +54,14 @@ public class CustomerService {
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
-
     public void deleteCustomer(Long identityId) {
         Customer customer = customerDao.findByIdentityId(identityId);
         customerDao.delete(customer);
     }
+
+    public String findPhoneNumberByIdentityId(Long identityId) {
+        return customerDao.findPhoneNumberByIdentityId(identityId);
+    }
+
+
 }
