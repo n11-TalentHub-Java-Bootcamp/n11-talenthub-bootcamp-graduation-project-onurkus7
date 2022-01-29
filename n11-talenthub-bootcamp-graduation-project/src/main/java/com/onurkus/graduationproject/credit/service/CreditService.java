@@ -1,11 +1,11 @@
 package com.onurkus.graduationproject.credit.service;
 
 import com.onurkus.graduationproject.credit.converter.CreditMapper;
-import com.onurkus.graduationproject.credit.dao.CreditDao;
+import com.onurkus.graduationproject.credit.repository.CreditRepository;
 import com.onurkus.graduationproject.credit.dto.CreditDto;
 import com.onurkus.graduationproject.credit.enums.EnumCreditStatus;
 import com.onurkus.graduationproject.customer.converter.CustomerMapper;
-import com.onurkus.graduationproject.customer.dao.CustomerDao;
+import com.onurkus.graduationproject.customer.repository.CustomerRepository;
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
 import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.message.service.MessageService;
@@ -14,7 +14,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 
@@ -24,15 +23,15 @@ import static java.math.BigDecimal.ZERO;
 @RequiredArgsConstructor
 public class CreditService {
 
-    private final CreditDao creditDao;
-    private final CustomerDao customerDao;
+    private final CreditRepository creditRepository;
+    private final CustomerRepository customerRepository;
     private final MessageService messageService;
 
     private static final Integer CREDIT_LIMIT_MULTIPLIER = 4;
 
     public CreditDto getCreditLimitByIdentityIdAndBirthdayDate(Long identityId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdayDate) {
 
-        return CreditMapper.INSTANCE.convertToCreditDto(creditDao.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0));
+        return CreditMapper.INSTANCE.convertToCreditDto(creditRepository.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0));
     }
 
     public CreditDto transactionCreditLimitByIdentityId(Long identityId) {
@@ -47,7 +46,7 @@ public class CreditService {
     }
 
     private CustomerDto getCustomerByIdentityId(Long identityId) {
-        Customer customer = customerDao.findByIdentityId(identityId);
+        Customer customer = customerRepository.findByIdentityId(identityId);
 
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
@@ -122,7 +121,7 @@ public class CreditService {
     }
 
     private void saveCredit(CreditDto creditDto) {
-        creditDao.save(CreditMapper.INSTANCE.convertToCredit(creditDto));
+        creditRepository.save(CreditMapper.INSTANCE.convertToCredit(creditDto));
         messageService.sendMessageByIdentityId(creditDto);
 
     }

@@ -1,7 +1,7 @@
 package com.onurkus.graduationproject.customer.service;
 
 import com.onurkus.graduationproject.customer.converter.CustomerMapper;
-import com.onurkus.graduationproject.customer.dao.CustomerDao;
+import com.onurkus.graduationproject.customer.repository.CustomerRepository;
 import com.onurkus.graduationproject.customer.dto.CustomerDto;
 import com.onurkus.graduationproject.customer.dto.CustomerSaveDto;
 import com.onurkus.graduationproject.customer.dto.CustomerUpdateDto;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final CustomerDao customerDao;
+    private final CustomerRepository customerRepository;
 
     public String saveCustomer(CustomerSaveDto customerSaveDto) {
         final Long identityId = customerSaveDto.getIdentityId();
@@ -25,42 +25,42 @@ public class CustomerService {
         }
 
         Customer customer = CustomerMapper.INSTANCE.convertCustomerSaveDtoToCustomer(customerSaveDto);
-        customerDao.save(customer);
+        customerRepository.save(customer);
         return "Customer successfully registered";
     }
 
     public List<CustomerDto> findAllCustomer() {
-        List<Customer> customerList = customerDao.findAll();
+        List<Customer> customerList = customerRepository.findAll();
 
         return CustomerMapper.INSTANCE.convertToCustomerDtoList(customerList);
     }
 
     public CustomerDto findByIdentityCustomer(Long identityId) {
 
-        Customer customer = customerDao.findByIdentityId(identityId);
+        Customer customer = customerRepository.findByIdentityId(identityId);
 
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
     public CustomerDto updateCustomer(Long identityId, CustomerUpdateDto customerUpdateDto) {
 
-        Customer customer = customerDao.findByIdentityId(identityId);
+        Customer customer = customerRepository.findByIdentityId(identityId);
 
         customer.setPhoneNumber(customerUpdateDto.getPhoneNumber());
         customer.setSalary(customerUpdateDto.getSalary());
         customer.setCollateral(customerUpdateDto.getCollateral());
-        customerDao.save(customer);
+        customerRepository.save(customer);
 
         return CustomerMapper.INSTANCE.convertToCustomerDto(customer);
     }
 
     public void deleteCustomer(Long identityId) {
-        Customer customer = customerDao.findByIdentityId(identityId);
-        customerDao.delete(customer);
+        Customer customer = customerRepository.findByIdentityId(identityId);
+        customerRepository.delete(customer);
     }
 
     public String findPhoneNumberByIdentityId(Long identityId) {
-        return customerDao.findPhoneNumberByIdentityId(identityId);
+        return customerRepository.findPhoneNumberByIdentityId(identityId);
     }
 
 

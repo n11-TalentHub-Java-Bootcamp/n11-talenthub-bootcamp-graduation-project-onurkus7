@@ -3,7 +3,7 @@ package com.onurkus.graduationproject.message.service;
 import com.onurkus.graduationproject.credit.dto.CreditDto;
 import com.onurkus.graduationproject.customer.service.CustomerService;
 import com.onurkus.graduationproject.message.converter.MessageMapper;
-import com.onurkus.graduationproject.message.dao.MessageDao;
+import com.onurkus.graduationproject.message.repository.MessageRepository;
 import com.onurkus.graduationproject.message.dto.MessageDto;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MessageService {
 
-    private final MessageDao messageDao;
+    private final MessageRepository messageRepository;
     private final CustomerService customerService;
 
     private static final String ACCOUNT_SID = "ACb22980023a710da4fc6582f758b15d3a";
@@ -54,7 +54,7 @@ public class MessageService {
         messageDto.setPhoneNumber(phoneNumberByIdentityId);
         messageDto.setMessageContent(messageContent);
 
-        messageDao.save(MessageMapper.INSTANCE.convertToMessage(messageDto));
+        messageRepository.save(MessageMapper.INSTANCE.convertToMessage(messageDto));
 
     }
 
