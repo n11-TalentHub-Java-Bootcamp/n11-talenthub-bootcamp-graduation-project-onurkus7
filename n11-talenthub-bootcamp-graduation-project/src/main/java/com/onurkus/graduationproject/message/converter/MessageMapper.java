@@ -12,8 +12,8 @@ public interface MessageMapper {
 
     MessageMapper INSTANCE= Mappers.getMapper(MessageMapper.class);
 
-    @Mapping(source = "customerId.id",target="customerId")
-    MessageDto convertToMessageDto(Message message);
+    @Mapping(source ="customerId", target="customerId.id")
+    Message convertToMessage(MessageDto messageDto);
 
 
 }
