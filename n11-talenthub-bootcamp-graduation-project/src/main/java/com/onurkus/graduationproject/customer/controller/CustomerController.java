@@ -5,8 +5,12 @@ import com.onurkus.graduationproject.customer.dto.CustomerSaveDto;
 import com.onurkus.graduationproject.customer.dto.CustomerUpdateDto;
 import com.onurkus.graduationproject.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -16,31 +20,31 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("/customer-save")
-    public CustomerDto saveCustomer(@RequestBody CustomerSaveDto customerSaveDto) {
-        return customerService.saveCustomer(customerSaveDto);
+    @PostMapping
+    public ResponseEntity<String> saveCustomer(@RequestBody CustomerSaveDto customerSaveDto) {
+        String saveCustomer = customerService.saveCustomer(customerSaveDto);
+        return ResponseEntity.ok(saveCustomer);
     }
 
-    @GetMapping("/customer-search")
+    @GetMapping
     public List<CustomerDto> findAllCustomer() {
         return customerService.findAllCustomer();
     }
 
-    @GetMapping("/customer-search/{identityId}")
+    @GetMapping("/{identityId}")
     public CustomerDto findByIdentityCustomer(@PathVariable Long identityId) {
         return customerService.findByIdentityCustomer(identityId);
     }
 
-    @PutMapping("/customer-update/{identityId}")
+    @PutMapping("/{identityId}")
     public CustomerDto updateCustomer(@PathVariable Long identityId, @RequestBody CustomerUpdateDto customerUpdateDto) {
-        return customerService.updateCustomer(identityId,customerUpdateDto);
+        return customerService.updateCustomer(identityId, customerUpdateDto);
     }
 
-    @DeleteMapping("/customer-delete/{identityId}")
+    @DeleteMapping("/{identityId}")
     public void deleteCustomer(@PathVariable Long identityId) {
         customerService.deleteCustomer(identityId);
     }
-
 
 
 }
