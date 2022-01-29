@@ -1,6 +1,5 @@
 package com.onurkus.graduationproject.customer.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
