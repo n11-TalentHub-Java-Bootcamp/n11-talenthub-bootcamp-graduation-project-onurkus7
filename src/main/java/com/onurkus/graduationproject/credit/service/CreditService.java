@@ -138,7 +138,7 @@ public class CreditService {
 
     private void saveCredit(CreditDto creditDto) {
         creditRepository.save(CreditMapper.INSTANCE.convertToCredit(creditDto));
-        messageService.sendMessageByIdentityId(creditDto);
+        messageService.sendMessage(creditDto);
 
         LOGGER.info("The credit limit result of the customer with " + creditDto.getIdentityId() +
                 " id has been saved in the database.");

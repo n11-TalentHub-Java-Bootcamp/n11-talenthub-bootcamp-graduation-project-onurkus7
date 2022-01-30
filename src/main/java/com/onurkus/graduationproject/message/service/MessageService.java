@@ -26,7 +26,7 @@ public class MessageService {
     private static final String AUTH_TOKEN = "2cf665672d395d74a545a3e687758404";
     private static final String BASE_PHONE_NUMBER = "+17755225036";
 
-    public void sendMessageByIdentityId(CreditDto creditDto) {
+    public void sendMessage(CreditDto creditDto) {
 
         String phoneNumber = customerService.findPhoneNumberByIdentityId(creditDto.getIdentityId());
 
