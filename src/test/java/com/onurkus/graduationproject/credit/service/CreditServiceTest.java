@@ -42,9 +42,7 @@ class CreditServiceTest extends TestUtils {
         CreditDto expected = creditService.getCreditLimitByIdentityIdAndBirthdayDate(credit.getIdentityId(),
                 customer.getBirthdayDate());
 
-
         assertEquals(expected, actual);
-
 
     }
 
@@ -56,9 +54,10 @@ class CreditServiceTest extends TestUtils {
 
         CreditDto actual = CreditMapper.INSTANCE.convertToCreditDto(credit);
 
-        CreditDto expected = creditService.appCreditLimitByIdentityId(12345678910L);
+        CreditDto expected = creditService.appCreditLimitByIdentityId(customer.getIdentityId());
 
         assertEquals(expected, actual);
 
     }
+
 }
