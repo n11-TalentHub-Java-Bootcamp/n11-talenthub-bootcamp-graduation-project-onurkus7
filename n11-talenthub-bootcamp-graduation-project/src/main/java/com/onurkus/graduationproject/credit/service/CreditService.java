@@ -29,12 +29,14 @@ public class CreditService {
 
     private static final Integer CREDIT_LIMIT_MULTIPLIER = 4;
 
-    public CreditDto getCreditLimitByIdentityIdAndBirthdayDate(Long identityId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdayDate) {
+    public CreditDto getCreditLimitByIdentityIdAndBirthdayDate(
+            Long identityId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdayDate) {
 
-        return CreditMapper.INSTANCE.convertToCreditDto(creditRepository.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0));
+        return CreditMapper.INSTANCE.convertToCreditDto(
+                creditRepository.findCreditByIdentityIdAndBirthdayDate(identityId, birthdayDate).get(0));
     }
 
-    public CreditDto transactionCreditLimitByIdentityId(Long identityId) {
+    public CreditDto appCreditLimitByIdentityId(Long identityId) {
 
         CustomerDto customerDto = getCustomerByIdentityId(identityId);
 

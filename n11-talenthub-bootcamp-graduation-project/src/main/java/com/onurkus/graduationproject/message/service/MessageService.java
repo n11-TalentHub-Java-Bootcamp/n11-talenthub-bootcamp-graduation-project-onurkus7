@@ -30,7 +30,7 @@ public class MessageService {
 
     }
 
-    public String twilioSmsProcess(CreditDto creditDto, String phoneNumberByIdentityId) {
+    private String twilioSmsProcess(CreditDto creditDto, String phoneNumberByIdentityId) {
 
         String messageContent = "K4RK1N BANK: Your loan application has been " + creditDto.getCreditStatus() +
                 ". Your Credit Limit: " + creditDto.getCreditLimit();
