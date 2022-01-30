@@ -1,7 +1,7 @@
 # n11 Talenthub Bootcamp Graduation Project: Credit Application
 
 # About The Project
-Web application that answers the credit application requests made by the customer according to the created business rules. This project includes functions such as giving credit to the customer and determining the credit limit, adding new users to the system, that inform the user of credit information via SMS. These functions are determined according to certain.
+It is a web application that answers the loan application requests made by the customer according to the established business rules. This project includes functions such as giving credit to the customer and determining the credit limit, adding new users to the system, informing the user of credit information via SMS. These functions are determined according to certain criteria.
 ## Table of Contents
 - [Tech Stack](#tech-stack)
 - [Installing](#installing)
