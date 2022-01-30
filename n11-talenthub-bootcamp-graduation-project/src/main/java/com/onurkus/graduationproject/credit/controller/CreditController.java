@@ -16,8 +16,8 @@ public class CreditController {
     private final CreditService creditService;
 
     @PostMapping("/{identityId}")
-    public CreditDto transactionCreditLimitByIdentityId(@PathVariable Long identityId) {
-        return creditService.transactionCreditLimitByIdentityId(identityId);
+    public CreditDto appCreditLimitByIdentityId(@PathVariable Long identityId) {
+        return creditService.appCreditLimitByIdentityId(identityId);
     }
 
     @GetMapping("/{identityId}/{birthdayDate}")
