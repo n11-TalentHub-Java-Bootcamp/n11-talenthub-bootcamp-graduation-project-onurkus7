@@ -44,8 +44,7 @@ class CreditServiceTest extends TestUtils {
 
 
         assertEquals(expected, actual);
-
-
+        
     }
 
     @Test

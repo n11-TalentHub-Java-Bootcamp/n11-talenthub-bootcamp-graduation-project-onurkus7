@@ -1,8 +1,5 @@
 package com.onurkus.graduationproject.message.service;
 
-import com.onurkus.graduationproject.credit.converter.CreditMapper;
-import com.onurkus.graduationproject.credit.dto.CreditDto;
-import com.onurkus.graduationproject.credit.entity.Credit;
 import com.onurkus.graduationproject.customer.entity.Customer;
 import com.onurkus.graduationproject.customer.service.CustomerService;
 import com.onurkus.graduationproject.message.repository.MessageRepository;
@@ -11,10 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class MessageServiceTest extends TestUtils {
@@ -30,13 +26,13 @@ class MessageServiceTest extends TestUtils {
 
     @Test
     void sendMessageByIdentityId() {
-        Customer customer=generateCustomer(12345678910L);
+        Customer customer = generateCustomer(12345678910L);
 
-        String actual=customer.getPhoneNumber();
+        String actual = customer.getPhoneNumber();
 
-        String expected=customerService.findPhoneNumberByIdentityId(customer.getIdentityId());
+        String expected = customerService.findPhoneNumberByIdentityId(customer.getIdentityId());
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
     }
 

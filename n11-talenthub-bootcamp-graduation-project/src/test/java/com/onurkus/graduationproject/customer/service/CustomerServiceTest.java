@@ -65,7 +65,7 @@ class CustomerServiceTest extends TestUtils {
 
         Customer expected = customerRepository.findByIdentityId(12345678912L);
 
-       assertEquals(expected,actual);
+        assertEquals(expected,actual);
 
     }
 
